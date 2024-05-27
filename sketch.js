@@ -92,6 +92,14 @@ function drawSkeleton() {
      {
        ellipse(partR.x,partR.y,50)
      }
+
+    partA = pose.keypoints[0]
+    if(partA.score > 0.1)
+    {
+      fill("#ff0000")
+      ellipse(partA.x,partA.y,50)
+      fill("#ffffff")
+    }
     // shoulders to hips
     partA = pose.keypoints[5];
     partB = pose.keypoints[11];
