@@ -64,33 +64,7 @@ function draw() {
   image(cam, 0, 0);
 }
 
-// 繪製骨架
-function drawSkeleton() {
-  for (let i = 0; i < poses.length; i++) {
-    pose = poses[i];
 
-    // 繪製肩膀到手腕的線條
-    for (let j = 5; j < 9; j++) {
-      if (pose.keypoints[j].score > 0.1 && pose.keypoints[j + 2].score > 0.1) {
-        let partA = pose.keypoints[j];
-        let partB = pose.keypoints[j + 2];
-        line(partA.x, partA.y, partB.x, partB.y); // 繪製線條
-      }
-    }
-
-    // 繪製肩膀到肩膀的線條
-    let partA = pose.keypoints[5];
-    let partB = pose.keypoints[6];
-    if (partA.score > 0.1 && partB.score > 0.1) {
-      line(partA.x, partA.y, partB.x, partB.y); // 繪製線條
-    }
-
-    // 繪製髖部到髖部的線條
-    partA = pose.keypoints[11];
-    partB = pose.keypoints[12];
-    if (partA.score > 0.1 && partB.score > 0.1) {
-      line(partA.x, partA.y, partB.x, partB.y); // 繪製線條
-    }
 
     // 在眼睛位置繪製物件圖片
     let leftEye = pose.keypoints[1];
@@ -121,28 +95,6 @@ function drawSkeleton() {
       text(`${studentID} ${studentName}`, nose.x, nose.y - 50); // 顯示學號和姓名
     }
 
-    // 繪製肩膀到髖部的線條
-    partA = pose.keypoints[5];
-    partB = pose.keypoints[11];
-    if (partA.score > 0.1 && partB.score > 0.1) {
-      line(partA.x, partA.y, partB.x, partB.y); // 繪製線條
-    }
-    partA = pose.keypoints[6];
-    partB = pose.keypoints[12];
-    if (partA.score > 0.1 && partB.score > 0.1) {
-      line(partA.x, partA.y, partB.x, partB.y); // 繪製線條
-    }
-
-    // 繪製髖部到腳部的線條
-    for (let j = 11; j < 15; j++) {
-      if (pose.keypoints[j].score > 0.1 && pose.keypoints[j + 2].score > 0.1) {
-        partA = pose.keypoints[j];
-        partB = pose.keypoints[j + 2];
-        line(partA.x, partA.y, partB.x, partB.y); // 繪製線條
-      }
-    }
-  }
-}
 
 /* Points (view on left of screen = left part - when mirrored)
   0 nose
