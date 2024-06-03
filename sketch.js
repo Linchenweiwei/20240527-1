@@ -8,8 +8,8 @@ https://www.tensorflow.org/hub/tutorials/movenet
 let video, bodypose, pose, keypoint, detector; // 定義變量
 let poses = [];
 let img; // 用於存放您的物件圖片
-let studentID = "412730368"; // 學號
-let studentName = "林宸瑋"; // 姓名
+let studentID = "412731027"; // 學號
+let studentName = "周益宏"; // 姓名
 
 // 初始化MoveNet檢測器
 async function init() {
@@ -47,7 +47,7 @@ async function setup() {
   video.hide(); // 隱藏視頻元素
   await init(); // 初始化檢測器
   
-  img = loadImage('1.gif'); // 加載您的物件圖片
+  img = loadImage('upload_e7b8681276bf136e02f932e89ea6fe54.gif'); // 加載您的物件圖片
   
   stroke(255); // 設置筆觸顏色為白色
   strokeWeight(5); // 設置筆觸寬度為5
