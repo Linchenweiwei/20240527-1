@@ -122,7 +122,7 @@ function drawConnections(pose) {
     let nose = pose.keypoints[0];
     fill(255);
     textSize(16);
-    text(`${412730268} ${林宸瑋}`, nose.x - 50, nose.y - 20); // Adjust the position as needed
+    text(`${studentId} ${studentName}`, nose.x - 50, nose.y - 20); // Adjust the position as needed
   }
 }
 
