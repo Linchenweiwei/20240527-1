@@ -1,12 +1,10 @@
 /* MoveNet Skeleton - Steve's Makerspace (most of this code is from TensorFlow)
 
-MoveNet is developed by TensorFlow:
-https://www.tensorflow.org/hub/tutorials/movenet
-
-*/
-
 let video, bodypose, pose, keypoint, detector;
 let poses = [];
+let gifImg, elbowImg; // For loading images
+const studentId = "412730268"; // Replace with your student ID
+const studentName = "林宸瑋"; // Replace with your name
 
 async function init() {
   const detectorConfig = {
@@ -40,6 +38,10 @@ async function setup() {
   video.hide();
   await init();
 
+  // Load the GIF and elbow images
+  gifImg = loadImage('1.gif'); // Use the actual path to your uploaded GIF
+  elbowImg = loadImage('1.gif'); // Use the actual path to your elbow image
+
   stroke(255);
   strokeWeight(5);
 }
@@ -55,73 +57,72 @@ function draw() {
 }
 
 function drawSkeleton() {
-  // Draw all the tracked landmark points
   for (let i = 0; i < poses.length; i++) {
     pose = poses[i];
-    // shoulder to wrist
-    for (j = 5; j < 9; j++) {
-      if (pose.keypoints[j].score > 0.1 && pose.keypoints[j + 2].score > 0.1) {
-        partA = pose.keypoints[j];
-        partB = pose.keypoints[j + 2];
-        line(partA.x, partA.y, partB.x, partB.y);
+    drawKeypoints(pose);
+    drawConnections(pose);
+  }
+}
+
+function drawKeypoints(pose) {
+  for (let j = 0; j < pose.keypoints.length; j++) {
+    const keypoint = pose.keypoints[j];
+    if (keypoint.score > 0.1) {
+      if (j === 1 || j === 2) { // Left eye or right eye
+        image(gifImg, keypoint.x - 10, keypoint.y - 10, 20, 20); // Adjust the size and position as needed
+      } else if (j === 7 || j === 8) { // Left elbow or right elbow
+        image(elbowImg, keypoint.x - 10, keypoint.y - 10, 20, 20); // Adjust the size and position as needed
       }
     }
-    // shoulder to shoulder
-    partA = pose.keypoints[5];
-    partB = pose.keypoints[6];
-    if (partA.score > 0.1 && partB.score > 0.1) {
-      line(partA.x, partA.y, partB.x, partB.y);
-      
-    }
-    // hip to hip
-    partA = pose.keypoints[11];
-    partB = pose.keypoints[12];
-    if (partA.score > 0.1 && partB.score > 0.1) {
-      line(partA.x, partA.y, partB.x, partB.y);
-      
-    }
+  }
+}
 
-    //eye
-    part1 = pose.keypoint[1]
-    part0 = pose.keypoint[2]
-    if(partL.score > 0.1)
-    {
-      ellipse(partL.x,partL.y,50)
-    }
-     if(partR.score > 0.1)
-     {
-       ellipse(partR.x,partR.y,50)
-     }
-
-    partA = pose.keypoints[0]
-    if(partA.score > 0.1)
-    {
-      fill("#ff0000")
-      ellipse(partA.x,partA.y,50)
-      fill("#ffffff")
-    }
-    // shoulders to hips
-    partA = pose.keypoints[5];
-    partB = pose.keypoints[11];
-    if (partA.score > 0.1 && partB.score > 0.1) {
+function drawConnections(pose) {
+  // shoulder to wrist
+  for (j = 5; j < 9; j++) {
+    if (pose.keypoints[j].score > 0.1 && pose.keypoints[j + 2].score > 0.1) {
+      partA = pose.keypoints[j];
+      partB = pose.keypoints[j + 2];
       line(partA.x, partA.y, partB.x, partB.y);
-      
     }
-    partA = pose.keypoints[6];
-    partB = pose.keypoints[12];
-    if (partA.score > 0.1 && partB.score > 0.1) {
+  }
+  // shoulder to shoulder
+  partA = pose.keypoints[5];
+  partB = pose.keypoints[6];
+  if (partA.score > 0.1 && partB.score > 0.1) {
+    line(partA.x, partA.y, partB.x, partB.y);
+  }
+  // hip to hip
+  partA = pose.keypoints[11];
+  partB = pose.keypoints[12];
+  if (partA.score > 0.1 && partB.score > 0.1) {
+    line(partA.x, partA.y, partB.x, partB.y);
+  }
+  // shoulders to hips
+  partA = pose.keypoints[5];
+  partB = pose.keypoints[11];
+  if (partA.score > 0.1 && partB.score > 0.1) {
+    line(partA.x, partA.y, partB.x, partB.y);
+  }
+  partA = pose.keypoints[6];
+  partB = pose.keypoints[12];
+  if (partA.score > 0.1 && partB.score > 0.1) {
+    line(partA.x, partA.y, partB.x, partB.y);
+  }
+  // hip to foot
+  for (j = 11; j < 15; j++) {
+    if (pose.keypoints[j].score > 0.1 && pose.keypoints[j + 2].score > 0.1) {
+      partA = pose.keypoints[j];
+      partB = pose.keypoints[j + 2];
       line(partA.x, partA.y, partB.x, partB.y);
-      
     }
-    // hip to foot
-    for (j = 11; j < 15; j++) {
-      if (pose.keypoints[j].score > 0.1 && pose.keypoints[j + 2].score > 0.1) {
-        partA = pose.keypoints[j];
-        partB = pose.keypoints[j + 2];
-        line(partA.x, partA.y, partB.x, partB.y);
-        
-      }
-    }
+  }
+  // Display student ID and name above the head
+  if (pose.keypoints[0].score > 0.1) {
+    let nose = pose.keypoints[0];
+    fill(255);
+    textSize(16);
+    text(`${412730268} ${林宸瑋}`, nose.x - 50, nose.y - 20); // Adjust the position as needed
   }
 }
 
