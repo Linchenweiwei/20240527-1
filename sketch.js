@@ -8,8 +8,8 @@ https://www.tensorflow.org/hub/tutorials/movenet
 let video, bodypose, pose, keypoint, detector; // 定義變量
 let poses = [];
 let img; // 用於存放您的物件圖片
-let studentID = "412731027"; // 學號
-let studentName = "周益宏"; // 姓名
+let studentID = "412730268"; // 學號
+let studentName = "林宸瑋"; // 姓名
 
 // 初始化MoveNet檢測器
 async function init() {
