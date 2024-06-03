@@ -118,7 +118,7 @@ function drawSkeleton() {
       fill(255, 0, 0); // 設置填充顏色為紅色
       textSize(20); // 設置文字大小為20
       textAlign(CENTER); // 設置文字對齊方式為中心對齊
-      text(${studentID} ${studentName}, nose.x, nose.y - 50); // 顯示學號和姓名
+      text(`${studentID} ${studentName}`, nose.x, nose.y - 50); // 顯示學號和姓名
     }
 
     // 繪製肩膀到髖部的線條
